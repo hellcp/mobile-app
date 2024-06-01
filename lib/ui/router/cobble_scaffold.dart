@@ -3,6 +3,7 @@ import 'package:cobble/ui/theme/with_cobble_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../common/icons/fonts/rebble_icons.dart';
+import 'cobble_appbar.dart';
 
 class CobbleScaffold extends StatelessWidget {
   final Widget child;
@@ -68,7 +69,10 @@ class CobbleScaffold extends StatelessWidget {
 
     return Scaffold(
       appBar: navBarTitle == null
-          ? null
+          ? PreferredSize(
+              preferredSize: Size.fromHeight(0),
+              child: AppBar(),
+            )
           : PreferredSize(
               preferredSize: Size.fromHeight(height),
               child: AppBar(
@@ -94,7 +98,7 @@ class CobbleScaffold extends StatelessWidget {
           SizedBox(height: 4),
           Text(
             subtitle!,
-            style: context.theme.appBarTheme.textTheme!.headline6!.copyWith(
+            style: context.theme.textTheme!.headline6!.copyWith(
               fontSize: 14,
               color: context.scheme!.muted,
             ),

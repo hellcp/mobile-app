@@ -42,7 +42,7 @@ class StoreTab extends HookConsumerWidget implements CobbleScreen {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Those are args from outside that tell us what application to display
-    final args = ModalRoute.of(context)!.settings.arguments as AppstoreArguments;
+    final args = ModalRoute.of(context)!.settings.arguments as AppstoreArguments?;
     final appUrl = "https://store-beta.rebble.io/app/";
 
     final indexTab = useState<int>(0);
@@ -126,7 +126,7 @@ class StoreTab extends HookConsumerWidget implements CobbleScreen {
     Future<void> _setBaseAttrs() async {
       attrs.value.addAll({ 'native': 'true', 'inApp': 'true', 'jsv': '0', 'platform': Platform.operatingSystem });
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      attrs.value.addAll({ 'app_version': 'packageInfo.version', 'release_id': packageInfo.buildNumber });
+      attrs.value.addAll({ 'app_version': packageInfo.version, 'release_id': packageInfo.buildNumber });
       final currentWatch = connectionState.currentConnectedWatch;
       if (currentWatch != null) {
         attrs.value['pebble_color'] = currentWatch.model.index.toString();
@@ -273,7 +273,7 @@ class StoreTab extends HookConsumerWidget implements CobbleScreen {
                           SizedBox(height: 4),
                           Text(
                             _config[value].label,
-                            style: context.theme.appBarTheme.textTheme!.headline6!
+                            style: context.theme.textTheme!.headline6!
                                 .copyWith(
                               fontSize: 14,
                               color: context.scheme!.muted,

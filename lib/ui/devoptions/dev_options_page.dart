@@ -98,9 +98,9 @@ class DevOptionsPage extends HookConsumerWidget implements CobbleScreen {
                     if (connectionState.currentConnectedWatch != null) ... [
                       Container(
                         child: Row(children: <Widget>[
-                          Container(
-                            child: Center(
-                                child: PebbleWatchIcon(connectionState.currentConnectedWatch!.model)),
+                          PebbleWatchIcon(
+                            connectionState.currentConnectedWatch!.model,
+                            backgroundColor: context.scheme!.success,
                           ),
                           SizedBox(width: 16),
                           Column(

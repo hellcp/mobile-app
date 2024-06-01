@@ -205,7 +205,7 @@ class WidgetLibrary extends HookWidget implements CobbleScreen {
                         negative: 'Cancel',
                         positive: 'Delete',
                         // Can be styled differently with intents
-                        intent: context.scheme!.destructive,
+                        intent: context.scheme!.danger,
                       );
                     },
                   ),

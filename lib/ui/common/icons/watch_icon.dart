@@ -20,10 +20,7 @@ class _WatchIcon extends StatelessWidget {
   final EdgeInsets margin;
   @override
   Widget build(BuildContext context) {
-    return CobbleCircle(
-      margin: margin,
-      diameter: size,
-      color: backgroundColor,
+    return Container(
       child: Stack(
         children: layers
             .map((e) => Icon(
@@ -33,6 +30,11 @@ class _WatchIcon extends StatelessWidget {
                 ))
             .toList(),
       ),
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.all(Radius.circular(size / 3.5))),
     );
   }
 }

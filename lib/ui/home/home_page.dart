@@ -60,16 +60,15 @@ class HomePage extends HookWidget implements CobbleScreen {
         return popped == false;
       },
       child: CobbleScaffold.page(
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          onTap: (i) => index.value = i,
-          currentIndex: index.value,
-          items: _config
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (i) => index.value = i,
+          selectedIndex: index.value,
+          destinations: _config
               .map(
-                (tab) => BottomNavigationBarItem(
+                (tab) => NavigationDestination(
               icon: Icon(tab.icon),
+              selectedIcon: Icon(tab.icon, color: Theme.of(context).colorScheme.onSecondary),
               label: tab.label,
-              backgroundColor: Theme.of(context).colorScheme.surface,
             ),
           )
               .toList(),

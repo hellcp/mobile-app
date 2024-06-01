@@ -12,35 +12,41 @@ class CobbleTheme {
     /// For example primary color in dark theme is considered light and expects
     /// dark text even though text in dark theme should be light.
     final materialScheme = brightness == Brightness.dark
-        ? ColorScheme(
-            primary: scheme.primary,
-            primaryVariant: scheme.primary,
-            secondary: scheme.primary,
-            secondaryVariant: scheme.primary,
-            surface: scheme.surface,
-            background: scheme.background,
-            error: scheme.danger,
-            onPrimary: invertedScheme.text,
-            onSecondary: invertedScheme.text,
-            onSurface: scheme.text,
-            onBackground: scheme.text,
-            onError: scheme.text,
+        ? ColorScheme.fromSeed(
+            seedColor: Color(0xFFFA5521),
+            //primary: scheme.primary,
+            //primaryVariant: scheme.primary,
+            //secondary: scheme.secondary,
+            //secondaryVariant: scheme.secondary,
+            //tertiary: scheme.tertiary,
+            //surface: scheme.surface,
+            //background: scheme.background,
+            //error: scheme.danger,
+            //onPrimary: invertedScheme.text,
+            //onSecondary: invertedScheme.text,
+            //onSurface: scheme.text,
+            //onBackground: scheme.text,
+            //onError: scheme.text,
             brightness: brightness!,
+            //outline: scheme.divider,
           )
-        : ColorScheme(
-            primary: scheme.primary,
-            primaryVariant: scheme.primary,
-            secondary: scheme.primary,
-            secondaryVariant: scheme.primary,
-            surface: scheme.surface,
-            background: scheme.background,
-            error: scheme.danger,
-            onPrimary: invertedScheme.text,
-            onSecondary: invertedScheme.text,
-            onSurface: scheme.text,
-            onBackground: scheme.text,
-            onError: scheme.text,
+        : ColorScheme.fromSeed(
+            seedColor: Color(0xFFFA5521),
+            //primary: scheme.primary,
+            //primaryVariant: scheme.primary,
+            //secondary: scheme.secondary,
+            //secondaryVariant: scheme.secondary,
+            //tertiary: scheme.tertiary,
+            //surface: scheme.surface,
+            //background: scheme.background,
+            //error: scheme.danger,
+            //onPrimary: invertedScheme.text,
+            //onSecondary: invertedScheme.text,
+            //onSurface: scheme.text,
+            //onBackground: scheme.text,
+            //onError: scheme.text,
             brightness: brightness!,
+            //outline: scheme.divider,
           );
 
     /// This is entire typography of app, as determined by designer. You should
@@ -74,14 +80,8 @@ class CobbleTheme {
     );
 
     final buttonTheme = ButtonStyle(
-      minimumSize: MaterialStateProperty.all(Size(32, 32)),
+      minimumSize: MaterialStateProperty.all(Size(44, 44)),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      padding: MaterialStateProperty.all(
-        EdgeInsets.symmetric(
-          vertical: 0,
-          horizontal: 8,
-        ),
-      ),
       textStyle: MaterialStateProperty.all(textTheme.button),
       foregroundColor: simpleMaterialStateProperty(
         materialScheme.primary,
@@ -101,10 +101,9 @@ class CobbleTheme {
 
     return ThemeData(
       brightness: brightness,
+      useMaterial3: true,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       primaryColor: materialScheme.primary,
-      primaryColorBrightness: invertedBrightness,
-      accentColor: materialScheme.secondary,
       backgroundColor: materialScheme.background,
       colorScheme: materialScheme,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -130,11 +129,6 @@ class CobbleTheme {
       appBarTheme: AppBarTheme(
         color: materialScheme.surface,
         centerTitle: true,
-        textTheme: TextTheme(
-          headline6: textTheme.headline6!.copyWith(
-            fontSize: 16,
-          ),
-        ),
         iconTheme: IconThemeData(
           color: materialScheme.primary,
           size: 25,
@@ -151,7 +145,7 @@ class CobbleTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderSide: BorderSide(
-            color: scheme.divider,
+            color: materialScheme.outline,
           ),
         ),
       ),
@@ -159,19 +153,25 @@ class CobbleTheme {
         labelStyle: textTheme.bodyText2!.copyWith(
           fontSize: 16,
         ),
-        labelColor: scheme.text,
         unselectedLabelStyle: textTheme.bodyText2!.copyWith(
           fontSize: 16,
         ),
-        labelPadding: EdgeInsets.only(top: 5, bottom: 4),
-        unselectedLabelColor: scheme.muted,
         // TODO: Indicator should be rounded and not straight, implement that later
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(
             width: 4.0,
             color: scheme.primary,
           ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
+      ),
+      switchTheme: SwitchThemeData(
+        trackColor: MaterialStateProperty.resolveWith((states) =>
+            states.contains(MaterialState.selected) ? materialScheme.primary : materialScheme.secondary),
+        thumbColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        indicatorColor: materialScheme.secondary,
       ),
     );
   }

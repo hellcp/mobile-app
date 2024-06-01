@@ -21,7 +21,7 @@ class CobbleSheet {
     required Widget Function(BuildContext context) builder,
   }) async {
     final borderRadius = BorderRadius.vertical(
-      top: Radius.circular(4),
+      top: Radius.circular(8),
       bottom: Radius.zero,
     );
     await showModalBottomSheet(
@@ -41,7 +41,7 @@ class CobbleSheet {
           ),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height / 3,
+              maxHeight: MediaQuery.of(context).size.height,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -212,7 +212,7 @@ class InlineCobbleSheet {
     );
 
     final borderRadius = BorderRadius.vertical(
-      top: Radius.circular(4),
+      top: Radius.circular(8),
       bottom: Radius.zero,
     );
 
@@ -231,7 +231,7 @@ class InlineCobbleSheet {
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height / 3,
+            maxHeight: MediaQuery.of(context).size.height,
           ),
           child: SingleChildScrollView(
             child: builder(context),

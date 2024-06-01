@@ -14,6 +14,7 @@ import 'package:cobble/ui/common/components/cobble_fab.dart';
 import 'package:cobble/ui/common/icons/fonts/rebble_icons.dart';
 import 'package:cobble/ui/router/cobble_scaffold.dart';
 import 'package:cobble/ui/router/cobble_screen.dart';
+import 'package:cobble/ui/router/scroll_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -88,11 +89,12 @@ class LockerTab extends HookConsumerWidget implements CobbleScreen {
             if (snap.hasData) {
               return TabBarView(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverGrid(
+                  CustomScrollView(
+                    controller: myScrollController,
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.all(16),
+                        sliver: SliverGrid(
                           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 320.0,
                             mainAxisSpacing: 16.0,
@@ -113,22 +115,26 @@ class LockerTab extends HookConsumerWidget implements CobbleScreen {
                             ).toList(),
                           ),
                         ),
-                        if (incompatibleFaces.length > 0)
-                          SliverToBoxAdapter(
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(16),
-                                    child: Text(tr.lockerPage.incompatibleFaces),
-                                  ),
-                                  CobbleDivider(),
-                                ],
-                              ),
+                      ),
+                      if (incompatibleFaces.length > 0)
+                        SliverToBoxAdapter(
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Text(tr.lockerPage.incompatibleFaces),
+                                ),
+                                CobbleDivider(),
+                              ],
                             ),
                           ),
-                        SliverGrid(
+                        ),
+                      SliverPadding(
+                        // Larger bottom padding because of the FAB
+                        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 72.0),
+                        sliver: SliverGrid(
                           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 320.0,
                             mainAxisSpacing: 16.0,
@@ -148,10 +154,11 @@ class LockerTab extends HookConsumerWidget implements CobbleScreen {
                               ).toList(),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   CustomScrollView(
+                    controller: myScrollController,
                     slivers: [
                       SliverReorderableList(
                         itemBuilder: (BuildContext context, int index) {
@@ -194,19 +201,23 @@ class LockerTab extends HookConsumerWidget implements CobbleScreen {
                             ),
                           ),
                         ),
-                      SliverList(
-                        delegate: SliverChildListDelegate(
-                          incompatibleApps
-                              .map<Widget>(
-                                (app) => AppsItem(
-                              app: app,
-                              appManager: appManager,
-                              lineConnected: lineConnected,
-                              iconUrl: snap.data![app.appstoreId]?.getPlatformIconImage(currentWatch?.runningFirmware.hardwarePlatform.getWatchType().name ?? ""),
-                              key: ValueKey(app.uuid),
-                            ),
-                          )
-                              .toList(),
+                      SliverPadding(
+                        // Larger bottom padding because of the FAB
+                        padding: const EdgeInsets.only(bottom: 72.0),
+                        sliver: SliverList(
+                          delegate: SliverChildListDelegate(
+                            incompatibleApps
+                                .map<Widget>(
+                                  (app) => AppsItem(
+                                app: app,
+                                appManager: appManager,
+                                lineConnected: lineConnected,
+                                iconUrl: snap.data![app.appstoreId]?.getPlatformIconImage(currentWatch?.runningFirmware.hardwarePlatform.getWatchType().name ?? ""),
+                                key: ValueKey(app.uuid),
+                              ),
+                            )
+                                .toList(),
+                          ),
                         ),
                       ),
                     ],

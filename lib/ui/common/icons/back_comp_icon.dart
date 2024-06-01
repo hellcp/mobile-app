@@ -8,7 +8,7 @@ class BackCompIcon extends StatelessWidget {
   BackCompIcon(
       this.compIcon,
       { this.color,
-        this.size = 48.0, }
+        this.size = 56.0, }
       );
   final CompIcon compIcon;
   final Color? color;
@@ -25,7 +25,7 @@ class BackCompIcon extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: color ?? context.scheme!.primary,
-        shape: BoxShape.circle),
+        borderRadius: BorderRadius.all(Radius.circular(size / 3.5))),
     );
   }
 

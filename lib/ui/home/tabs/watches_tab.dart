@@ -13,6 +13,7 @@ import 'package:cobble/ui/common/components/cobble_fab.dart';
 import 'package:cobble/ui/common/components/cobble_sheet.dart';
 import 'package:cobble/ui/common/components/cobble_tile.dart';
 import 'package:cobble/ui/common/icons/watch_icon.dart';
+import 'package:cobble/ui/common/icons/back_comp_icon.dart';
 import 'package:cobble/ui/common/icons/comp_icon.dart';
 import 'package:cobble/ui/common/icons/fonts/rebble_icons.dart';
 import 'package:cobble/ui/router/cobble_navigator.dart';
@@ -27,8 +28,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/icons/fonts/rebble_icons.dart';
 
 class MyWatchesTab extends HookConsumerWidget implements CobbleScreen {
-  final Color _disconnectedColor = Color.fromRGBO(255, 255, 255, 0.5);
-  final Color _connectedColor = Color.fromARGB(255, 0, 169, 130);
 
   void getCurrentWatchStatus() {}
   final UiConnectionControl uiConnectionControl = UiConnectionControl();
@@ -36,6 +35,9 @@ class MyWatchesTab extends HookConsumerWidget implements CobbleScreen {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Color _disconnectedColor = context.scheme!.surface;
+    final Color _connectedColor = context.scheme!.success;
+
     final connectionState = ref.watch(connectionStateProvider);
     final defaultWatch = ref.watch(defaultWatchProvider);
     final pairedStorage = ref.watch(pairedStorageProvider.notifier);
@@ -217,14 +219,10 @@ class MyWatchesTab extends HookConsumerWidget implements CobbleScreen {
           Column(children: <Widget>[
             Container(
                 child: Row(children: <Widget>[
-                  Container(
-                    child: Center(
-                        child: CompIcon(RebbleIcons.disconnect_from_watch,
-                            RebbleIcons.disconnect_from_watch_background)),
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                        color: _disconnectedColor, shape: BoxShape.circle),
+                  BackCompIcon(
+                    CompIcon(RebbleIcons.disconnect_from_watch,
+                             RebbleIcons.disconnect_from_watch_background),
+                    color: _disconnectedColor,
                   ),
                   SizedBox(width: 16),
                   Column(
@@ -251,10 +249,9 @@ class MyWatchesTab extends HookConsumerWidget implements CobbleScreen {
                   .map((e) => InkWell(
                         child: Container(
                             child: Row(children: <Widget>[
-                              Container(
-                                child: Center(
-                                    child: PebbleWatchIcon(e!.model,
-                                        backgroundColor: _getBrStatusColor(e))),
+                              PebbleWatchIcon(
+                                e!.model,
+                                backgroundColor: _getBrStatusColor(e),
                               ),
                               SizedBox(width: 16),
                               Column(
@@ -291,11 +288,9 @@ class MyWatchesTab extends HookConsumerWidget implements CobbleScreen {
                 .map((e) => InkWell(
                       child: Container(
                         child: Row(children: <Widget>[
-                          Container(
-                            child: Center(
-                                child: PebbleWatchIcon(
-                                    PebbleWatchModel.values[e.color!],
-                                    backgroundColor: _getBrStatusColor(e))),
+                          PebbleWatchIcon(
+                            PebbleWatchModel.values[e.color!],
+                            backgroundColor: _getBrStatusColor(e),
                           ),
                           SizedBox(width: 16),
                           Column(

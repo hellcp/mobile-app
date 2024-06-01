@@ -172,7 +172,7 @@ class PairPage extends HookConsumerWidget implements CobbleScreen {
             child: CobbleButton(
               outlined: false,
               label: tr.pairPage.searchAgain.ble,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
               onPressed: _refreshDevicesBle,
             ),
           ),
@@ -181,7 +181,7 @@ class PairPage extends HookConsumerWidget implements CobbleScreen {
             child: CobbleButton(
               outlined: false,
               label: tr.pairPage.searchAgain.classic,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
               onPressed: _refreshDevicesClassic,
             ),
           ),

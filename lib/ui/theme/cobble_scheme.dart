@@ -28,11 +28,20 @@ class CobbleSchemeData {
   /// Used for controls such as switches, buttons, and as a selection indicator.
   final Color primary;
 
+  /// Used for secondary controls.
+  final Color secondary;
+
+  /// Used for tertiary controls.
+  final Color tertiary;
+
   /// Background color for dialogs about dangerous actions.
   final Color danger;
 
   /// Used for destructive actions, such as deleting a database or factory resetting a watch.
   final Color destructive;
+
+  /// Used for successful actions like connected watch.
+  final Color success;
 
   /// Page background.
   final Color background;
@@ -55,8 +64,11 @@ class CobbleSchemeData {
   CobbleSchemeData({
     required this.brightness,
     required this.primary,
+    required this.secondary,
+    required this.tertiary,
     required this.danger,
     required this.destructive,
+    required this.success,
     required this.background,
     required this.surface,
     required this.elevated,
@@ -68,8 +80,11 @@ class CobbleSchemeData {
   static final _darkScheme = CobbleSchemeData(
     brightness: Brightness.dark,
     primary: Color(0xFFF9A285),
+    secondary: Color(0xFFF9A285),
+    tertiary: Color(0xFFF9A285),
     danger: Color(0xFFAF0000),
     destructive: Color(0xFFFF7575),
+    success: Color(0xFF78F9CD),
     background: Color(0xFF333333),
     surface: Color(0xFF414141),
     elevated: Color(0xFF484848),
@@ -80,15 +95,18 @@ class CobbleSchemeData {
 
   static final _lightScheme = CobbleSchemeData(
     brightness: Brightness.light,
-    primary: Color(0xFFCD3100),
-    danger: Color(0xFFEA7272),
-    destructive: Color(0xFFBB2323),
-    background: Color(0xFFF0F0F0),
-    surface: Color(0xFFFAFAFA),
-    elevated: Color(0xFFFFFFFF),
-    text: Color(0xFF000000).withOpacity(0.7),
-    muted: Color(0xFF000000).withOpacity(0.4),
-    divider: Color(0xFF000000).withOpacity(0.25),
+    primary: Color(0xFFB12C00),
+    secondary: Color(0xFF77574E),
+    tertiary: Color(0xFFF5E1A6),
+    danger: Color(0xFFFFDAD4),
+    destructive: Color(0xFFBA1B1B),
+    success: Color(0xFF78F9CD),
+    background: Color(0xFFFCFCFC),
+    surface: Color(0xFFF6EBE8),
+    elevated: Color(0xFFF8F2EF),
+    text: Color(0xFF201A18),
+    muted: Color(0xFF86736E),
+    divider: Color(0xFF86736E),
   );
 
   factory CobbleSchemeData.fromBrightness(Brightness? brightness) =>
